@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Contato</title>
+</head>
+<body>
+    <h1>Formulário de Contato</h1>
+    {% if enviado %}
+        <p>Formulário enviado com sucesso!</p>
+    {% endif %}
+    <form method="POST">
+        {{ form.csrf_token }}
+        <p>{{ form.nome.label }}<br>{{ form.nome(size=40) }}</p>
+        <p>{{ form.mensagem.label }}<br>{{ form.mensagem(rows=4, cols=40) }}</p>
+        <p>{{ form.enviar() }}</p>
+    </form>
+</body>
+</html>
