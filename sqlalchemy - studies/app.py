@@ -1,23 +1,17 @@
-from flask import Flask
-from flask_sqlalchemy import SQLAlchemy
+from sqlalchemy import create_engine, Column, Integer, String
+from sqlalchemy.ext.declarative import declarative_base
+from sqlalchemy.orm import sessionmaker
+from . import app
+Base = declarative_base()
 
-app = Flask(__name__)
-app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///meu_banco.db"
-app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
-db = SQLAlchemy(app)
-class Usuario(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    nome = db.Column(db.String(80), nullable=False)
-    email = db.Column(db.String(120), unique=True, nullable=False)
+class User(Base):
+    __tablename__ = 'usuarios'
+    id = Column(Integer, primary_key=True)
+    name = Column(String(50))
+    age = Column(Integer)
 
-    def __repr__(self):
-        return f"<Usuario {self.nome}>"
-class Post(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    titulo = db.Column(db.String(100), nullable=False)
-    conteudo = db.Column(db.Text, nullable=False)
-    usuario_id = db.Column(db.Integer, db.ForeignKey('usuario.id'))
-    usuario = db.relationship('Usuario', backref='posts')
-if __name__ == "__main__":
-    with app.app_context():
-        db.create_all()
+engine = create_engine('mysql+pymysql://root:root%40%2323@localhost/my_database') #CREATE DATABASE meu_banco;
+Base.metadata.create_all(engine)
+Session = sessionmaker(bind=engine)
+session = Session
+
