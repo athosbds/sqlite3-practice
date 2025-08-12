@@ -31,5 +31,5 @@ def delete_user(user):
     user_delete = session.query(User).filter(user)
     session.delete(user_delete)
     session.commit()
-
+# continuando....
     
