@@ -31,7 +31,5 @@ def delete_user(user):
     user_delete = session.query(User).filter(user)
     session.delete(user_delete)
     session.commit()
-def update_user(id, name=None, age=None):
+
     
-create_user('Augustin', 17)
-list_users()
