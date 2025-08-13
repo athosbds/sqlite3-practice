@@ -10,7 +10,7 @@ class User(Base):
     name = Column(String(50))
     age = Column(Integer)
 
-# Use placeholders ou dados fictícios
+# aqui recomendo usar fictício em um projeto para evitar vazamentos de credenciais
 engine = create_engine('mysql+pymysql://USUARIO:SENHA@HOST/NOME_DO_BANCO')
 Base.metadata.create_all(engine)
 
